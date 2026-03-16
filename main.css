@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+  overflow: hidden;
+}
+
+.video-background video {
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  object-fit: cover;
+}
+.blur-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+  backdrop-filter: blur(20px);          /* Blurs the stuff behind the div */
+  -webkit-backdrop-filter: blur(20px);  /* For Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  z-index: 1; /* Sits on top of the video but under the text */
+}
+.white-background{
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  transform: translate(20%, 20%); 
+  background: rgb(255, 226, 212); /* Semi-transparent background */
+  border: 1.5px solid rgb(255, 73, 73);
+  padding: 20px;
+}
+.img-1
+{
+  position: absolute;
+  top: 67%;
+  left: 50%;  
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%); 
+}
+#question-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 10px; 
+    font-size: 20px;
+    letter-spacing: 1px; 
+    color: #6f3a02;
+    position: absolute;
+    top: 7%;
+    margin-right: 30%;
+    transform: translate(20%, 0%);
+}
+#question-box 
+{
+  position: absolute;
+  top: 33%;
+  left: 50%;  
+  transform: translate(-50%, -50%); 
+}
+#question-box button {
+
+padding: 6px 18px;  
+  margin: 5px;       
+  font-size: 14px;
+  cursor: pointer;
+  background: #ffffff33;
+  color: #6f3a02;
+  border: 1px solid white;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  transition: 0.3s;
+}
+
+#question-box button:hover {
+  background: white;
+  color: purple;
+  transform: scale(1.1);
+}
+.heart-sticker {
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+    /* Slowed down to 3 seconds for a floaty balloon feel */
+    animation: floatUp 3s ease-in forwards; 
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(0) scale(var(--size-mult)); /* Pops into its size */
+    }
+    100% {
+        /* var(--x) will create a slight swaying effect as it rises */
+        transform: translate(var(--x), -600px) scale(var(--size-mult)); 
+        opacity: 0;
+    }
+}
+.ticket-grid {
+    gap: -5px; /* Space between tickets */
+    margin-top: 20px;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+
+}
+
+.ticket-card {
+    width: 280px;  /* Much bigger than before */
+    height: 130px;  /* Matches your horizontal design ratio */
+    perspective: 1000px;
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition */
+
+}
+
+/* Add a hover effect so she knows she can click! */
+.ticket-card:hover {
+    transform: translateY(-40px) scale(1.05); /* Lifts and grows slightly */
+    filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.3)); /* Adds the 3D shadow */
+}
+
+.ticket-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.ticket-card.flipped .ticket-inner {
+    transform: rotateY(180deg);
+}
+
+.ticket-front, .ticket-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    background-size: contain; /* Important: keeps the whole design visible */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ticket-back {
+    transform: rotateY(180deg);
+}
+@media (max-width: 450px) {
+    .ticket-grid {
+        flex-direction: column; /* Stack them on phones */
+    }
+    .ticket-card {
+        width: 250px; /* Make them big again on phones */
+        height: 90px;
+    }
+}
